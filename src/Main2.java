@@ -69,6 +69,13 @@ public class Main2 {
         System.out.println(union);
 
 
+        //-----PROBAR METODO INSERTAR LUEGO DE----
+        System.out.println("METODO INSERTAR LUEGO DE");
+
+        lista.insertarLuego(lista2, cIgualdad);
+        System.out.println(lista);
+
+
 
     }
 

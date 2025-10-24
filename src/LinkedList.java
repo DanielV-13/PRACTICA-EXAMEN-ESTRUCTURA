@@ -211,11 +211,16 @@ public class LinkedList <E> {
                 for (Node<E> j = lista2.header; j != null; j = j.getNext()) {
                     //For anidado para recorrer la LISTA ORIGINAL
                     if(c.compare(i.getData(),j.getData())==0 ){  //Condicion
+
                         //NUNCA AÑADIR UN NODO DE UNA LISTA A OTRO  -- ESO CAUSA UN CAOS CON LOS PUNTEROS
                         //Crear un nuevo NODO con el mismo dato del Nodo que queremos
 
                         Node<E> comun= new Node(j.getData());
                         resultado.add(resultado.getTail(),comun);
+
+                        //Break evita duplicados
+                        break; //Si ya anadio, que salga del bucle interno
+                        //Continua con el otro elemento de la lista original
                     }
 
                 }
@@ -295,60 +300,44 @@ public class LinkedList <E> {
 
     }
 
+    //---------METODO NUEVO-------------
+    //----Insertar luego de---
+    // Que dadas dos listas, tome cada nodo de la lista A,
+    // busque si hay uno que coincida en cierto valor con los nodos de la lista B
+    // e inserte el nodo de A inmediatamente después del nodo de B que coincide en valor.
 
 
+    //FUNCIONAMIENTO DEL METODO
+    //El objetivo es modificar la lista this, la lista "original"
+    // donde estás programando el métod0) insertándole nodos de la lista A.
 
+    //Entendiendo el Problema
+    //Imagina que tienes dos listas:
+    //listaA (la que pasas como parámetro): ["Insertar Esto"]
+    //la lista this): ["Coincidencia", "Otro Dato", "Coincidencia"]
 
+    //Parametros
+    //1)La otra lista
+    //2) El comparator
 
+    public void insertarLuego(LinkedList<E> lista2, Comparator<E> c){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   /* //--------------Metodo para REVERTIR LA LISTA-----------
-    public DoubleLinkedList<E> revertir(){
-        //1) La lista esta vacia o tiene 1 solo elemento
-        if(header==null || header==tail){
-            return this; //Retorna la misma lista
+        //Recorrer la primera lista (la original)
+        for(Node<E> i=this.getHeader(); i!=null; i= i.getNext()){
+            //Recorrer la segunda lista
+            for(Node<E> j=lista2.getHeader(); j!=null; j= j.getNext()){
+                if(c.compare(i.getData(), j.getData())==0){  //Si son iguales...
+                    this.add(i, j);   //Añade el elmento de la lista 2, despues del elemnto de la lista 1
+                    break;
+                }
+            }
         }
-
-        DoubleLinkedList <E> invertida= new DoubleLinkedList<>(); //Nueva lista, empieza vacia
-
-        //Bucle For
-        //Empieza desde el tail (FINAL)
-        //Condicion que el nodo NO sea null
-        //Avanzar, no esta definido en la declaracion del for  - Avanzamos del fin para el inicio
-        for (Node <E> i =tail; i != null; ){
-            Node<E> anterior= i.getPrevious();  //Vamos avanzando en la lista hacia atras
-
-            //Antes de agregar a la nueva lista, se debe eliminar los enlaces
-            //Que tenian los nodos con la lista anterior
-            i.setNext(null); //Limpiar el next del NODO
-            i.setPrevious(null); //Limpiar el previous del NODO
-
-            invertida.add(null, i);
-
-            i=siguiente; //Avanzamos el for
-        }
-        return invertida;
-
     }
-*/
+
+
+
+
+
 
 
 
