@@ -188,7 +188,6 @@ public class LinkedList <E> {
     }
 
         //-------METODO PARA HACER INTERSECCION (VERSION ABSTRACTA)----------
-
         //Dadas 2 listas retorna una nueva lista con los elementos en comun en ambas listas
 
         //Retorno
@@ -225,8 +224,45 @@ public class LinkedList <E> {
             return resultado;
     }
 
+    //-------METODO PARA HACER UNION(VERSION ABSTRACTA)----------
+    //Dadas 2 listas retorna una nueva lista con la UNION de ambas listas, sin elementos repetidos
+
+    //Retorno
+    //1) Retorna una Nueva LinkedList
+
+    //Parametros
+    // 1) La otra Lista
+    // 2) Un Comparator<E> (para comparar la interseccion)
+
+    public LinkedList<E> union(LinkedList<E> lista2, Comparator<E> c){
+
+        //Creo la linked List que se va a devolver
+        LinkedList<E> resultado= new LinkedList<>();
+
+        //1)Primero guardo una lista con la interserccion de ambas listas (uso metodo pasado)
+        LinkedList<E> interseccion= this.interseccion(lista2,c);
+
+        //Ahora si procedo a hacer la union, y luego elimino los elementos repetidos
+
+        //1) Añado la lista original a la respuesta -- TODOS LOS NODOS
+        for(Node<E> i=this.getHeader(); i!=null; i.getNext()){
+            Node<E> nodoOriginal = new Node(i.getData()) ;
+            //Añadir al final cada uno de estos nodos de la original
+            resultado.add(resultado.getTail(), nodoOriginal);
+        }
+
+        //Añado los NODOS no repetidos de la lista2 a la respuesta
+
+        //-Recorro la lista 2
+        for(Node<E> j=lista2.getHeader(); j!=null; j.getNext()){
+            //-Recorro la lista de interseccion
+            for(Node<E> k=interseccion.getHeader(); k!=null; k.getNext()){
+                if(j.getData()!=)
+            }
+        }
 
 
+    }
 
 
 
