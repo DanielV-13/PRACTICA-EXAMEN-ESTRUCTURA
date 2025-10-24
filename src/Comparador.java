@@ -7,7 +7,7 @@ public class Comparador implements Comparator <Node> {
 
     public int compare(Node nodoLista, Node nodoReferencia) {
 
-        if (nodoLista.getData() == nodoReferencia.getData()) {
+        if (nodoLista.getData().equals(nodoReferencia.getData()) ) {
             return 1;
         } else {
             return 0;

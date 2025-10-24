@@ -170,7 +170,7 @@ public class LinkedList <E> {
     public void replace(Comparador igualdad,Node referencia, E reemplazo){
 
         //Recorro toda la lista
-        for(Node i=header; i!=null; i.getNext()){
+        for(Node i=header; i!=null; i= i.getNext()){
 
             if(igualdad.compare(i,referencia)==1){
                 i.setData(reemplazo);

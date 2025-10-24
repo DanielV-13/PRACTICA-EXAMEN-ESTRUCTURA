@@ -31,6 +31,18 @@ public class Main {
 
         System.out.println(lista);
 
+        //2) Uso del Replace
+        //1) Creo mi comparador
+        Comparador cIgualdad2 = new Comparador();
+
+        //2)Creo mi Nodo referencia
+        Node<String> referencia2= new Node("Primero");
+
+
+        lista.replace(cIgualdad2, referencia2, "OTRO REEMPLAZADO");
+
+        System.out.println(lista);
+
 
     }
 }
