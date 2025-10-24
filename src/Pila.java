@@ -4,6 +4,7 @@ import java.util.Deque;
 public class Pila<T> {
     private Deque<T> elementos;
 
+    //---CONSTRUCTOR---
     public Pila() {
         elementos = new ArrayDeque<>();
     }
@@ -35,6 +36,5 @@ public class Pila<T> {
     }
 
 
-
-        }
+}
 
