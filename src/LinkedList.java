@@ -327,8 +327,13 @@ public class LinkedList <E> {
             //Recorrer la segunda lista
             for(Node<E> j=lista2.getHeader(); j!=null; j= j.getNext()){
                 if(c.compare(i.getData(), j.getData())==0){  //Si son iguales...
-                    this.add(i, j);   //Añade el elmento de la lista 2, despues del elemnto de la lista 1
-                    break;
+                    //No se puede añadir un Nodo de una lista a otra
+                    Node<E> nodoAñadir=new Node(j.getData());
+                    this.add(i, nodoAñadir);   //Añade el elmento de la lista 2, despues del elemnto de la lista 1
+
+                    //IMPORTANTE, EVITAR BUCLE INFINITO
+                    i=i.getNext(); //Ahora nos saltamos el nodo que acabamos de añadir
+
                 }
             }
         }
