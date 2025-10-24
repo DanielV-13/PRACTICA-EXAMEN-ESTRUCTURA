@@ -1,6 +1,8 @@
 // SE NOS VA A DAR LA IMPLEMENTACION DE UNA LINKEDLIST
 //No es la implementacion de JAVA
 
+import java.util.Comparator;
+
 //Debe ser una clase Generica <E>
 //En realidad va a ser una DoubleLinkedList
 public class LinkedList <E> {
@@ -160,19 +162,25 @@ public class LinkedList <E> {
         return revertida;
     }
 
+    /// --------------------------------------EJERCICIOS DE ESTRUCTURA EXAMEN----------------------------
 //-------METODO PARA HACER REPLACE----------
 
-    //Parametros
-    //1) El comparador
-    //2) El nodo a comparar (REFERENCIA)
-    //3) El texto a reemplazar
+// -------METODO PARA HACER REPLACE (VERSIÓN ABSTRACTA)----------
 
-    public void replace(Comparador igualdad,Node referencia, E reemplazo){
+
+    //Parametros
+    // 1) Un Comparator<E> (¡Compara el DATO, no el Nodo!)
+    // 2) Una "plantilla" de tipo E (el valor que buscamos)
+    // 3) El reemplazo de tipo E
+
+    public void replace(Comparator<E> c , E plantilla, E reemplazo){
 
         //Recorro toda la lista
-        for(Node i=header; i!=null; i= i.getNext()){
 
-            if(igualdad.compare(i,referencia)==1){
+        //Imporatante, indicar que Node es de tipo <E>
+        for(Node<E> i=header; i!=null; i= i.getNext()){
+
+            if(c.compare(i.getData(),plantilla)==0){
                 i.setData(reemplazo);
             }
 
