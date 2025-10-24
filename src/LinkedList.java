@@ -17,24 +17,25 @@ public class LinkedList <E> {
     private int size;
 
     //----CONSTRUCTOR----
-    public LinkedList(){
-        this.header=null;
-        this.tail=null;
-        this.size=0; //Size empieza siendo 0
+    public LinkedList() {
+        this.header = null;
+        this.tail = null;
+        this.size = 0; //Size empieza siendo 0
     }
 
 
     //----Getters y Setters---
 
-    public Node<E> getHeader(){
+    public Node<E> getHeader() {
         return header;
     }
+
     //Obtenga el ultimo elemento - Devuelve el NODO
-    public Node<E> getTail(){
+    public Node<E> getTail() {
         return tail;
     }
 
-    public int getSize(){
+    public int getSize() {
         return size;
     }
 
@@ -72,17 +73,18 @@ public class LinkedList <E> {
         size++;  //Añadir 1 al size
         return nuevo;  //Retornar el nodo nuevo (el que se añadio)
     }
+
     //Convierta toda la lista String
     //---METODO TO STRING----
     @Override
-    public String toString(){
-        String s=""; //Variable local para almacenar
+    public String toString() {
+        String s = ""; //Variable local para almacenar
 
         //Empiezo en i=header  -- i es un dato de tipo NODO
         //CONDICION - i distinto de null
         //Avanzo con getNext
-        for(Node <E> i=header; i!=null; i=i.getNext() ) {
-            s= s+" - "+ i.getData();
+        for (Node<E> i = header; i != null; i = i.getNext()) {
+            s = s + " - " + i.getData();
         }
         return s;
     }
@@ -92,27 +94,27 @@ public class LinkedList <E> {
     //Remover un nodo de la lista
     //Recibe el nodo que se va a remover
 
-    public Node<E> remove (Node<E> eliminar) {
+    public Node<E> remove(Node<E> eliminar) {
 
         //1) Caso en que la lista este vacia,- tail y header estan en null
         if (header == null && tail == null) {
             return null; //No hacer nada
 
             //Caso 2) La lista tiene un solo elemento /Y el elemento a eliminar es ese elemento unico
-        }else if (header == tail && eliminar==header) {         //Si header es igual a tail, la lista tiene un solo elemento
+        } else if (header == tail && eliminar == header) {         //Si header es igual a tail, la lista tiene un solo elemento
             header = tail = null;   //Queda vacia la lista
 
             //Caso 3) Quiero elminar el header
-        }else if (eliminar == header) {
-            header= header.getNext(); //Definimos el nuevo HEADER
+        } else if (eliminar == header) {
+            header = header.getNext(); //Definimos el nuevo HEADER
             header.setPrevious(null); //Seteo el previous del nuevo header a NULL
             //Desconecta el anterior Header (eliminar)
             eliminar.setNext(null);
 
             // Caso 4) Quiero eliminar el tail
-        }else if(eliminar == tail) {
+        } else if (eliminar == tail) {
 
-            tail=tail.getPrevious();  //Definimos el nuevo Tail
+            tail = tail.getPrevious();  //Definimos el nuevo Tail
             tail.setNext(null); //Setero el next del nuevo tail a NULL
 
             //Desconecta el anterior tail
@@ -140,21 +142,21 @@ public class LinkedList <E> {
     //Revertir una lista
 
 
-    public LinkedList<E> reverse(){
+    public LinkedList<E> reverse() {
         //1) La lista esta vacia o tiene 1 solo elemento
-        if(header==null || header==tail){
+        if (header == null || header == tail) {
             return this; //Retorna la misma lista
         }
 
-        LinkedList<E> revertida= new LinkedList<>(); //Creamos nueva lista para guardar los revertidos
+        LinkedList<E> revertida = new LinkedList<>(); //Creamos nueva lista para guardar los revertidos
         //Bucle For
         //Empieza desde el tail (FINAL)
         //Condicion que el nodo NO sea null
         //Avanzar, no esta definido en la declaracion del for  - Avanzamos del fin para el inicio
 
-        for(Node<E> i =tail; i!=null; i=i.getPrevious()){
+        for (Node<E> i = tail; i != null; i = i.getPrevious()) {
 
-            revertida.add(revertida.getTail(),new Node<>(i.getData()));  //Se toma el tail de la nueva Lista
+            revertida.add(revertida.getTail(), new Node<>(i.getData()));  //Se toma el tail de la nueva Lista
             //Creamos un nuevo nodo para poder en la lista revertida
             //Ese nuevo nodo, tiene el mismo dato del i de la lista original
             // Se añade el nuevo nodo despues del tail
@@ -172,21 +174,53 @@ public class LinkedList <E> {
     // 1) Un Comparator<E> (¡Compara el DATO, no el Nodo!)
     // 2) Una "plantilla" de tipo E (el valor que buscamos)
     // 3) El reemplazo de tipo E
-
-    public void replace(Comparator<E> c , E plantilla, E reemplazo){
+    public void replace(Comparator<E> c, E plantilla, E reemplazo) {
 
         //Recorro toda la lista
-
         //Imporatante, indicar que Node es de tipo <E>
-        for(Node<E> i=header; i!=null; i= i.getNext()){
+        for (Node<E> i = header; i != null; i = i.getNext()) {
 
-            if(c.compare(i.getData(),plantilla)==0){
+            if (c.compare(i.getData(), plantilla) == 0) {
                 i.setData(reemplazo);
             }
-
         }
 
     }
+
+        //-------METODO PARA HACER INTERSECCION (VERSION ABSTRACTA)----------
+
+        //Dadas 2 listas retorna una nueva lista con los elementos en comun en ambas listas
+
+        //Retorno
+        //1) Retorna una Nueva LinkedList
+
+        //Parametros
+        // 1) La otra Lista
+        // 2) Un Comparator<E> (para comparar si son iguales los datos)
+
+        public LinkedList<E> interseccion (LinkedList<E> lista2,Comparator < E > c){
+
+        //Creo la lista que se va a devolver en el Metodo
+            LinkedList<E> resultado= new LinkedList<>();
+
+        //Primero recorro toda la lista 2, que es con la que quiero verificar la interseccion, indicando que Node es <E>
+
+
+            //Bucle Externo: Recorro la PRIMERA lista (this)
+            for (Node<E> i = this.header; i != null; i = i.getNext()) {
+                //Bucle Anidado, recorro la otra lista
+                for (Node<E> j = lista2.header; j != null; j = j.getNext()) {
+                    //For anidado para recorrer la LISTA ORIGINAL
+                    if(c.compare(i.getData(),j.getData())==0 ){  //Condicion
+                        resultado.add(resultado.getTail(),j);
+                    }
+
+                }
+            }
+
+            return resultado;
+    }
+
 
 
 
