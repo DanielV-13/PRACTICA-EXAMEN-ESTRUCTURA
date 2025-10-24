@@ -46,7 +46,21 @@ public class Main2 {
 
         LinkedList<String> interseccion= lista.interseccion(lista2, cContains);
 
+        System.out.println("INTERSECCION USANDO CONTAINS");
         System.out.println(interseccion);
+
+
+        //------------CREAR INTERSECCCION------------
+
+        //1) Con Comparator de IGUALDAD
+
+        Comparator<String> cIgualdad=new ComparadorIgualdad();
+
+        LinkedList<String> interseccion2= lista.interseccion(lista2, cIgualdad);
+
+        System.out.println("INTERSECCION USANDO IGUALDAD");
+        System.out.println(interseccion2);
+
 
 
 

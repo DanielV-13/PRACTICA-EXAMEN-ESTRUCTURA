@@ -212,7 +212,11 @@ public class LinkedList <E> {
                 for (Node<E> j = lista2.header; j != null; j = j.getNext()) {
                     //For anidado para recorrer la LISTA ORIGINAL
                     if(c.compare(i.getData(),j.getData())==0 ){  //Condicion
-                        resultado.add(resultado.getTail(),j);
+                        //NUNCA AÑADIR UN NODO DE UNA LISTA A OTRO  -- ESO CAUSA UN CAOS CON LOS PUNTEROS
+                        //Crear un nuevo NODO con el mismo dato del Nodo que queremos
+
+                        Node<E> comun= new Node(j.getData());
+                        resultado.add(resultado.getTail(),comun);
                     }
 
                 }
