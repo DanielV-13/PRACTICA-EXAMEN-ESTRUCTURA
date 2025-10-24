@@ -62,6 +62,12 @@ public class Main2 {
         System.out.println(interseccion2);
 
 
+        //-----PROBAR LA UNION-------
+        System.out.println("\n PROBEMOS LA UNIOON");
+
+       LinkedList<String> union= lista.union(lista2, cIgualdad);
+        System.out.println(union);
+
 
 
     }

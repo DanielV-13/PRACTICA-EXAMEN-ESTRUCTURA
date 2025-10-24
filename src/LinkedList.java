@@ -234,33 +234,64 @@ public class LinkedList <E> {
     // 1) La otra Lista
     // 2) Un Comparator<E> (para comparar la interseccion)
 
+    //ALGORITMO
+    //Hay un algoritmo mucho más fácil para la Unión (sin repetidos):
+    //Crea una lista resultado vacía.
+    //Recorre lista1 (this). Por cada elemento, revisa si YA está en resultado. Si no está, añádelo.
+    //Recorre lista2. Por cada elemento, revisa si YA está en resultado. Si no está, añádelo.
+    //Devuelve resultado.
+
     public LinkedList<E> union(LinkedList<E> lista2, Comparator<E> c){
 
         //Creo la linked List que se va a devolver
         LinkedList<E> resultado= new LinkedList<>();
 
-        //1)Primero guardo una lista con la interserccion de ambas listas (uso metodo pasado)
-        LinkedList<E> interseccion= this.interseccion(lista2,c);
 
-        //Ahora si procedo a hacer la union, y luego elimino los elementos repetidos
+        //1) Añado la lista original a la respuesta
+        //Verifico que el Nodo a añadir no este en resultado, para no añadirlo 2 veces.
 
-        //1) Añado la lista original a la respuesta -- TODOS LOS NODOS
-        for(Node<E> i=this.getHeader(); i!=null; i.getNext()){
-            Node<E> nodoOriginal = new Node(i.getData()) ;
-            //Añadir al final cada uno de estos nodos de la original
-            resultado.add(resultado.getTail(), nodoOriginal);
-        }
+        for(Node<E> i=this.getHeader(); i!=null; i=i.getNext()) {
 
-        //Añado los NODOS no repetidos de la lista2 a la respuesta
+            boolean repetido=false; //VARIABLE BANDERA- fuera del for anidado
 
-        //-Recorro la lista 2
-        for(Node<E> j=lista2.getHeader(); j!=null; j.getNext()){
-            //-Recorro la lista de interseccion
-            for(Node<E> k=interseccion.getHeader(); k!=null; k.getNext()){
-                if(j.getData()!=)
+            for (Node<E> j = resultado.getHeader(); j != null; j = j.getNext()) {
+                if (c.compare(i.getData(), j.getData()) == 0) {
+                    repetido = true; //Para marcar si se encontro repetido
+                    break; //Sale del for anidado
+                }
+            }
+            if (repetido == false) {
+                //Si no se encontro repetido
+                //Añado el nodo a resultado
+
+                //RECORDAR: NUNCA AÑADIR DIRECTAMENTE EL NODO DE OTRA LISTA
+                Node<E> nodoResultado= new Node(i.getData());
+                resultado.add(resultado.getTail(),nodoResultado);
             }
         }
 
+        //2) Añado la lista2 a la respuesta
+        //Verifico que el Nodo a añadir no este en resultado, para no añadirlo 2 veces.
+
+        for(Node<E> i=lista2.getHeader(); i!=null; i=i.getNext()) {
+
+            boolean repetido=false; //VARIABLE BANDERA- fuera del for anidado
+
+            for (Node<E> j = resultado.getHeader(); j != null; j = j.getNext()) {
+                if (c.compare(i.getData(), j.getData()) == 0) {
+                    repetido = true; //Para marcar si se encontro repetido
+                    break; //Sale del for anidado
+                }
+            }
+            if (repetido == false) {
+
+                Node<E> nodoResultado= new Node(i.getData());
+                resultado.add(resultado.getTail(),nodoResultado);
+            }
+        }
+
+        //Devuelvo el resultado final
+        return resultado;
 
     }
 
