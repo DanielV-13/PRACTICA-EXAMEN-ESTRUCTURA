@@ -4,12 +4,10 @@ import java.util.Deque;
 public class CambiarBase {
 
     //Convertir un numero en base 10 a otra base n
-
     //Debo ir guardando el residuo
 
     public static int convertir(int numero, int base){
        //Crear pila para guardar residuos
-
         Pila<Integer> P=new Pila<>();
 
         //Hacemos un bucle While
@@ -17,29 +15,38 @@ public class CambiarBase {
 
 
         while (cociente!=0){
-            cociente= cociente/base;   //division entera
-            int residuo= numero %base;   //mod
+            int residuo= cociente % base;   //mod  -- 1) Saco el residuo
+            cociente= cociente/base;   //division entera 2) Saco el nuevo cociente
+
             P.push(residuo);  //Voy guardando los residuos
         }
 
-        //Formar el numero nuevo
+        //-------Formar el numero nuevo------
 
-        while(P.size()>0){
-            System.out.println(P.peek()); //Muestra el primer elemento
-            P.pop(); //Elimina el primer elemento
+        // 3. Construir el número entero resultado
+        int resultadoInt = 0;
+        // Colocar los dígitos correctamente (unidades, decenas, centenas...)
+
+        while (!P.isEmpty()) {
+            int digito = P.pop(); // Saca el dígito de la cima
+
+            // "Mueve" los dígitos anteriores a la izquierda y suma el nuevo dígito
+            // Ejemplo: Si resultadoInt=13 y digito=2 -> 13 * 10 + 2 = 132
+
+            resultadoInt = resultadoInt * 10 + digito;
+
         }
-
-        return 0;
+        // Devolver el entero construido
+        return resultadoInt;
     }
 
-
+//------------MAIN PARA PROBAR-------------
     public static void main(String args[]){
 
-        convertir(30,2);
+        System.out.println(convertir(30,2));
+        System.out.println(convertir(90,5));
 
         }
-
-
 
 
 }
